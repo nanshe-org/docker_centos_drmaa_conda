@@ -13,7 +13,7 @@ HOSTNAME=$(hostname)
 echo "CORES=${CORES}" >> /etc/environment
 
 # Get the current user
-export USER=$(whoami)
+USER=$(whoami)
 
 # Fix some basic system and Grid Engine files
 echo "domain ${HOSTNAME}" >> /etc/resolv.conf

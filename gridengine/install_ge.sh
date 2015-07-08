@@ -88,7 +88,7 @@ service sgemaster stop
 cp /etc/resolv.conf.orig /etc/resolv.conf
 cp ${SGE_ROOT}/default/common/act_qmaster.orig ${SGE_ROOT}/default/common/act_qmaster
 # Make sure the `$CORES` variable is set in the profile.
-echo 'export CORES=$(grep -c '"'"'^processor'"'"' /proc/cpuinfo)' > /etc/profile.d/cores.sh
-echo 'setenv CORES `grep -c '"'"'^processor'"'"' /proc/cpuinfo`' > /etc/profile.d/cores.csh
+echo -e '\nexport CORES=$(grep -c '"'"'^processor'"'"' /proc/cpuinfo)' >> /etc/bashrc
+echo -e '\nsetenv CORES `grep -c '"'"'^processor'"'"' /proc/cpuinfo`' >> /etc/csh.cshrc
 # Clean yum so we don't have a bunch of junk left over from our build.
 yum clean all

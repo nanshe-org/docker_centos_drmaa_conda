@@ -5,8 +5,6 @@ export CORES=$(grep -c '^processor' /proc/cpuinfo)
 export SGE_CONFIG_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export SGE_ROOT=$SGE_CONFIG_DIR
 echo $SGE_CONFIG_DIR
-echo 'export CORES=$(grep -c '"'"'^processor'"'"' /proc/cpuinfo)' > /etc/profile.d/cores.sh
-echo 'setenv CORES `grep -c '"'"'^processor'"'"' /proc/cpuinfo`' > /etc/profile.d/cores.csh
 sed -i -r "s/^(127.0.0.1\s)(localhost\.localdomain\slocalhost)/\1localhost localhost.localdomain ${HOSTNAME} /" /etc/hosts
 cp /etc/resolv.conf /etc/resolv.conf.orig
 echo "domain ${HOSTNAME}" >> /etc/resolv.conf
@@ -89,5 +87,8 @@ service sge_execd stop
 service sgemaster stop
 cp /etc/resolv.conf.orig /etc/resolv.conf
 cp ${SGE_ROOT}/default/common/act_qmaster.orig ${SGE_ROOT}/default/common/act_qmaster
+# Make sure the `$CORES` variable is set in the profile.
+echo 'export CORES=$(grep -c '"'"'^processor'"'"' /proc/cpuinfo)' > /etc/profile.d/cores.sh
+echo 'setenv CORES `grep -c '"'"'^processor'"'"' /proc/cpuinfo`' > /etc/profile.d/cores.csh
 # Clean yum so we don't have a bunch of junk left over from our build.
 yum clean all

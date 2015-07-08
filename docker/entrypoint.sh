@@ -7,11 +7,13 @@ set -e
 #ulimit -l unlimited
 #ulimit -s unlimited
 
-# Get system specs
+# Get system specs (in case we didn't have them already).
 export CORES=$(grep -c '^processor' /proc/cpuinfo)
 export HOSTNAME=$(hostname)
-export USER=$(whoami)
 echo "CORES=${CORES}" >> /etc/environment
+
+# Get the current user
+export USER=$(whoami)
 
 # Fix some basic system and Grid Engine files
 echo "domain ${HOSTNAME}" >> /etc/resolv.conf
